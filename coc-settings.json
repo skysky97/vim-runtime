@@ -1,0 +1,58 @@
+{
+    "clangd.enabled": true,
+    "clangd.fallbackFlags": [""],
+    "clangd.arguments": [ "--clang-tidy","--background-index" ],
+    "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/15.0.3/clangd_15.0.3/bin/clangd",
+
+    "cmake.lsp.enable": false,
+    "cmake.lsp.serverPath": "cmake-language-server",
+    "cmake.lsp.buildDirectory": "build",
+
+    "coc.preferences.enableMarkdown": true,
+
+    "codeLens.position": "top",
+    "codeLens.enable": false,
+
+    "colors.enable": true,
+
+    "inlayHint.enable": false,
+
+    "git.addGBlameToBufferVar": true,
+    "git.enableGutters": true,
+    "git.gstatus.saveBeforeOpen": true,
+
+    "list.height": 15,
+    "list.limitLines": 500,
+    "list.source.grep.maxColumns": 1000,
+    "list.source.files.filterByName": true,
+    "list.source.grep.maxLines": 500,
+    "list.source.mru.filterByName": true,
+
+    "markdownlint.config": {
+        "MD013": false
+    },
+
+    "prettier.printWidth": 80,
+
+    "semanticTokens.enable": true,
+
+    "smartf.timeout": 5000,
+    "smartf.wordJump": false,
+
+    "suggest.formatItems": [
+        "kind",
+        "menu",
+        "abbr",
+        "shortcut"
+    ],
+    "suggest.labelMaxLength": 80,
+
+    "workspace.bottomUpFiletypes": ["*"],
+    "workspace.rootPatterns": [
+        ".git",
+        ".clang_format",
+        ".ignore",
+        "build"
+    ],
+    "workspace.workspaceFolderCheckCwd": false
+}
