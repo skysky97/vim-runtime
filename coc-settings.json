@@ -27,6 +27,10 @@
     "list.source.files.filterByName": true,
     "list.source.grep.maxLines": 500,
     "list.source.mru.filterByName": true,
+    "list.normalMappings": {
+        "<C-j>": "normal:j",
+        "<C-k>": "normal:k"
+    },
 
     "markdownlint.config": {
         "MD013": false

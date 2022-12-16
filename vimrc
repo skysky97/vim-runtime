@@ -53,9 +53,10 @@ set directory=~/.cache/vim//
 " Mapping
 nnoremap <Space> <Nop>
 nmap <silent> <Space><Space> :set wrap!<CR>
+nmap <silent> <leader>c :nohlsearch<CR>
 nmap <silent> <leader>ec :e ~/.vim/vimrc<CR>
 nmap <silent> <leader>es :e 
-    \ ~/.vim/pack/default/start/vim-colors-solarized/colors/solarized.vim<CR>
+    \ ~/.vim/plugged/vim-colors-solarized/colors/solarized.vim<CR>
 
 " }}}
 " Plugin {{{
@@ -346,8 +347,8 @@ nmap <leader>hs :CocCommand git.chunkStage<CR>
 nmap <leader>hS :CocCommand git.chunkUnstage<CR>
 nmap <leader>hi <Plug>(coc-git-chunkinfo)
 " navigate conflicts of current buffer
-nmap <leader>ck <Plug>(coc-git-prevconflict)
-nmap <leader>cj <Plug>(coc-git-nextconflict)
+" nmap <leader>ck <Plug>(coc-git-prevconflict)
+" nmap <leader>cj <Plug>(coc-git-nextconflict)
 " create text object for git chunks
 omap ig <Plug>(coc-git-chunk-inner)
 xmap ig <Plug>(coc-git-chunk-inner)
@@ -363,6 +364,13 @@ nmap gb <Plug>(coc-git-showblamedoc)
 nmap gi <Plug>(coc-git-chunkinfo)
 nmap gI <Plug>(coc-git-commit)
 
+" }}}
+" terminal {{{
+" ----------------------------------------------------------------------------
+" Open new terminal.
+nmap <leader>t :term<CR>
+nmap <C-`> :term<CR>
+tmap <C-`> :hide<CR>
 " }}}
 " termdebug {{{
 " ----------------------------------------------------------------------------

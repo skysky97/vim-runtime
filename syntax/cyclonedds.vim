@@ -24,10 +24,10 @@ syntax match logTime "^\d\+\.\d\{6,9\}"
 
 " Cyclonedds
 syntax match logGuid "\w\+:\w\+:\w\+:\w\+"
-syntax keyword logDdsMsg HEARTBEAT ACKNACK
+syntax keyword logDdsMsg HEARTBEAT ACKNACK NACKFRAG
 syntax keyword logDdsMsg SPDP SEDP
 syntax keyword logDdsMsg HDR
-syntax keyword logDdsMsg DATA
+syntax keyword logDdsMsg DATA DATAFRAG
 syntax keyword logDdsMsg INFOTS INFODST INFOSRC 
 syntax keyword logDdsBuiltin DCPSParticipant ParticipantBuiltinTopicData
 syntax keyword logDdsBuiltin DCPSPublication PublicationBuiltinTopicData
