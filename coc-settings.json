@@ -22,10 +22,10 @@
     "git.gstatus.saveBeforeOpen": true,
 
     "list.height": 15,
-    "list.limitLines": 500,
+    "list.limitLines": 10000,
     "list.source.grep.maxColumns": 1000,
     "list.source.files.filterByName": true,
-    "list.source.grep.maxLines": 500,
+    "list.source.grep.maxLines": 10000,
     "list.source.mru.filterByName": true,
     "list.normalMappings": {
         "<C-j>": "normal:j",
