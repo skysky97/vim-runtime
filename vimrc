@@ -21,6 +21,10 @@ set ttyfast
 set sidescroll=1
 set splitbelow
 set splitright
+set nostartofline
+if has('unnamedplus')
+set clipboard^=unnamedplus
+endif
 
 set number
 set signcolumn=number
@@ -61,7 +65,7 @@ nmap <silent> <leader>es :e
 " }}}
 " Plugin {{{
 " ----------------------------------------------------------------------------
-call plug#begin()
+call plug#begin('$HOME/.vim/plugged')
 Plug 'skysky97/vim-colors-solarized'
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn --install --frozen-lockfile'}
 Plug 'kevinoid/vim-jsonc'
