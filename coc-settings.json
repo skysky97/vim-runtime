@@ -1,7 +1,7 @@
 {
     "clangd.enabled": true,
     "clangd.fallbackFlags": [""],
-    "clangd.arguments": [ "--clang-tidy","--background-index" ],
+    "clangd.arguments": [ "--clang-tidy","--background-index","--header-insertion=never" ],
     "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/15.0.3/clangd_15.0.3/bin/clangd",
 
     "cmake.lsp.enable": false,
@@ -9,23 +9,38 @@
     "cmake.lsp.buildDirectory": "build",
 
     "coc.preferences.enableMarkdown": true,
+    "coc.preferences.enableLinkedEditing": false,
 
     "codeLens.position": "top",
     "codeLens.enable": false,
 
     "colors.enable": true,
 
+    "diagnostic.enableSign": true,
+    "diagnostic.signLevel": 4,
+
+    "explorer.file.showHiddenFiles": true,
+    "explorer.git.enable": false,
+
     "inlayHint.enable": false,
 
     "git.addGBlameToBufferVar": true,
-    "git.enableGutters": true,
+    "git.enableGutters": false,
     "git.gstatus.saveBeforeOpen": true,
 
+    "list.statusLineSegments":[
+        "%#CocListMode#-- %{coc#list#status(\"mode\")} --%*",
+        "%{coc#list#status(\"loading\")}",
+        "%{coc#list#status(\"args\")}",
+        "(%L/%{coc#list#status(\"total\")})",
+        "%=",
+        "%#CocListPath# %l/%L%*"
+    ],
+    "list.source.diagnostics.pathFormat": "filename",
     "list.height": 15,
     "list.limitLines": 10000,
     "list.source.grep.maxColumns": 1000,
     "list.source.files.filterByName": true,
-    "list.source.grep.maxLines": 10000,
     "list.source.mru.filterByName": true,
     "list.normalMappings": {
         "<C-j>": "normal:j",
@@ -37,11 +52,9 @@
     },
 
     "prettier.printWidth": 80,
+    "prettier.proseWrap": "never",
 
     "semanticTokens.enable": true,
-
-    "smartf.timeout": 5000,
-    "smartf.wordJump": false,
 
     "suggest.formatItems": [
         "kind",
