@@ -99,8 +99,7 @@ endfun
 " left: filename, modified flag, readonly flag, left align 
 "       Needs tagbar plugin to show current tag.
 set statusline=%-.71(%t%m%r%)
-set statusline+=%{tagbar#currenttag('\ ▶\ %s','','','nearest-stl')}
-
+set statusline+=%{exists('tagbar#currenttag')?tagbar#currenttag('\ ▶\ %s','','','nearest-stl'):''}
 
 " middle left: git branch
 set statusline+=%=
@@ -265,7 +264,11 @@ call plug#end()
 " Colorscheme {{{
 " ----------------------------------------------------------------------------
 " Info: The color scheme should be set after plugin loaded.
-colorscheme solarized
+if exists('solarized')
+  colorscheme solarized
+else
+  colorscheme habamax
+endif
 
 " }}}
 " solarized {{{
