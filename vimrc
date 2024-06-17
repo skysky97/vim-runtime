@@ -1,9 +1,10 @@
 " Name:     vim configuration
-" Author:   liyunting<liyunting0919@outlook.com>
-" URL:      https://github.com/skysky97/config
+" Author:   skysky97 <skysky97@126.com>
+" URL:      https://github.com/skysky97/vim-runtime
 
 " Generic {{{
 " ----------------------------------------------------------------------------
+let g:vim_home=$HOME.'/.vim'
 " Info: Set nocompatible before everything, cause it affects other options.
 set nocompatible
 " Empty viminfo to avoid keep history, like jumplist
@@ -229,7 +230,7 @@ let &t_ut=''
 " }}}
 " Plugin {{{
 " ----------------------------------------------------------------------------
-call plug#begin('$HOME/.vim/plugged')
+call plug#begin(g:vim_home.'/plugged')
 Plug 'skysky97/vim-colors-solarized'
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'npm ci'}
 Plug 'tpope/vim-surround'
@@ -264,7 +265,8 @@ call plug#end()
 " Colorscheme {{{
 " ----------------------------------------------------------------------------
 " Info: The color scheme should be set after plugin loaded.
-if exists('solarized')
+" Check if solarized color scheme exists.
+if isdirectory(g:vim_home.'/plugged/vim-colors-solarized')
   colorscheme solarized
 else
   colorscheme habamax
@@ -283,6 +285,65 @@ endif
 " ----------------------------------------------------------------------------
 " let g:node_client_debug = 1
 let g:coc_disable_startup_warning = 1
+
+" Set coc mappings only when the plugin is enabled.
+" Using VimEnter cmd here to make sure the mappings are set after coc.nvim is
+" loaded, as some mappings may override the default mappings and if coc is not
+" enabled then the default mappings should be used.
+autocmd VimEnter * call s:coc_map_key()
+
+" Function to map keys for coc.nvim
+function s:coc_map_key()
+  if !exists('g:coc_enabled') || !g:coc_enabled
+    return
+  endif
+  if exists('g:coc_key_map_enabled') && g:coc_key_map_enabled
+    return
+  endif
+  let g:coc_key_map_enabled = 1
+
+  " Goto definition
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+
+  " Switch source header file. Needs coc-clangd.
+  nmap <silent> gf :CocCommand clangd.switchSourceHeader<CR>
+  nmap <silent> gh :call <SID>show_documentation()<CR>
+
+  " CocList pre/next
+  nnoremap <silent><nowait> <C-j> :<C-u>CocNext<CR>
+  nnoremap <silent><nowait> <C-k> :<C-u>CocPrev<CR>
+
+  " Scroll in float window.
+  " Remap <C-f> and <C-b> for scroll float windows/popups.
+  if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f>
+    \ coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b>
+    \ coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f>
+    \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b>
+    \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f>
+    \ coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b>
+    \ coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  endif
+endfunction
+
+" Show documentation in preview window.
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
 
 " let g:coc_global_extensions = [
 "   \"coc-clangd",
@@ -308,47 +369,7 @@ let g:coc_disable_startup_warning = 1
 "   \"coc-prettier",
 "   \]
 
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gf :CocCommand clangd.switchSourceHeader<CR>
-nmap <silent> gh :call <SID>show_documentation()<CR>
-
-" coc-lists pre/next
-nnoremap <silent><nowait> <C-j> :<C-u>CocNext<CR>
-nnoremap <silent><nowait> <C-k> :<C-u>CocPrev<CR>
-
-" Show documentation in preview window.
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-" Scroll in float window.
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-nnoremap <silent><nowait><expr> <C-f>
-  \ coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <silent><nowait><expr> <C-b>
-  \ coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-inoremap <silent><nowait><expr> <C-f>
-  \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-inoremap <silent><nowait><expr> <C-b>
-  \ coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-vnoremap <silent><nowait><expr> <C-f>
-  \ coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-vnoremap <silent><nowait><expr> <C-b>
-  \ coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
-
-" }}}
-" coc-selection  {{{
+" coc-selection
 " ----------------------------------------------------------------------------
 " Select ranges using LSP.
 xmap if <Plug>(coc-funcobj-i)
@@ -367,8 +388,7 @@ xmap <silent> <C-s> <Plug>(coc-range-select)
 
 nmap <silent> <leader>a <Plug>(coc-cursors-position)
 
-" }}}
-" coc-complete  {{{
+" coc-completion
 " ----------------------------------------------------------------------------
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -396,8 +416,7 @@ inoremap <silent><expr> <c-l> coc#refresh()
 " inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 "                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" }}}
-" coc-refactor {{{
+" coc-refactor 
 " ----------------------------------------------------------------------------
 " Refactor using LSP.
 nmap <leader>fw <plug>(coc-cursors-word)
@@ -410,6 +429,7 @@ nmap <leader>fq <plug>(coc-fix-current)
 
 " Format using prettier.
 nmap <leader>fp :CocCommand prettier.formatFile<CR>
+
 " }}}
 " coc-list {{{
 " ----------------------------------------------------------------------------
